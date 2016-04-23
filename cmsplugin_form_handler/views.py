@@ -17,7 +17,7 @@ class ProcessFormView(FormView):
     it as normal, then, if valid, redirect to the `success_url` as defined in
     the plugin class's get_success_url(instance).
 
-    If the form is not valid, then POST it back whence it came.
+    If the form is not valid, then send it back whence it came.
     """
     http_method_names = ['post', ]
 
