@@ -65,6 +65,7 @@ inherit from PluginFormBase as follows::
 
     class CoolFormPlugin(PluginFormBase):
         name = 'Cool Form'
+        model = CMSPlugin
         render_template = 'form_plugin.html'
         form_class = CoolForm
         success_url = 'http://www.google.com/'
