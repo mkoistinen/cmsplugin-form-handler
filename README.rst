@@ -1,6 +1,6 @@
-===================
-PLUGIN_FORM_HANDLER
-===================
+======================
+CMSPlugin Form Handler
+======================
 
 .. important::
 
