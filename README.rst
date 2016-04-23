@@ -54,8 +54,8 @@ inherit from PluginFormBase as follows::
 
     from cms.models import CMSPlugin
 
-    from plugin_form_handler.cms_plugins import PluginFormBase
-    from plugin_form_handler.forms import FormPluginFormBase
+    from cmsplugin_form_handler.cms_plugins import PluginFormBase
+    from cmsplugin_form_handler.forms import FormPluginFormBase
 
 
     class CoolForm(FormPluginFormBase):
