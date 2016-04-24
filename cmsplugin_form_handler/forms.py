@@ -5,9 +5,7 @@ from __future__ import unicode_literals
 from django import forms
 
 
-class FormPluginFormBase(forms.Form):
-    instance_id = forms.IntegerField(widget=forms.HiddenInput)
-
-    def __init__(self, instance_id, *args, **kwargs):
-        super(FormPluginFormBase, self).__init__(*args, **kwargs)
-        self.fields['instance_id'].initial = instance_id
+class FormPluginFormMixin(object):
+    def __init__(self, source_url, *args, **kwargs):
+        super(FormPluginFormMixin, self).__init__(*args, **kwargs)
+        self.fields['cmsplugin_form_source_url'] = forms.CharField(widget=forms.HiddenInput, initial=source_url)

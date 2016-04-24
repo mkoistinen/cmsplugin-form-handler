@@ -9,5 +9,5 @@ from .views import ProcessFormView
 app_name = 'plugin_form_handler'
 
 urlpatterns = [
-    url(r'^(?P<instance_id>\d+)/$', ProcessFormView.as_view(), name='process_form'),
+    url(r'^(?P<plugin_id>\d+)/$', ProcessFormView.as_view(), name='process_form'),
 ]

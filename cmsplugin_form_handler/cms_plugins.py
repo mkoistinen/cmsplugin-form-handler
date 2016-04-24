@@ -2,9 +2,9 @@
 
 from __future__ import unicode_literals
 
-from django.core.urlresolvers import reverse
-
 from cms.plugin_base import CMSPluginBase
+
+from . import get_session_key
 
 
 class FormPluginBase(CMSPluginBase):
@@ -19,28 +19,52 @@ class FormPluginBase(CMSPluginBase):
 
     def get_form_class(self, instance):
         """
-        Override in subclass as required
+        Returns the form class to be used by this plugin.
+
+        Default implementation is to return the contents of
+        FormPluginBase.form_class, but this method can be overridden as
+        required for more elaborate circumstances.
         """
         return self.form_class
 
     def get_success_url(self, instance):
         """
-        Override in subclass as required
+        Returns the redirect URL for successful form submissions.
+
+        Default implementation is to return the contents of
+        FormPluginBase.success_url, but this method can be overridden as
+        required for more elaborate circumstances.
         """
         return self.success_url
 
-    def render(self, context, instance, placeholder):
-        context = super(FormPluginBase, self).render(context, instance, placeholder)
-        request = context.get('request')
-        form_class = self.get_form_class(instance)
+    def form_valid(self, instance, form):
+        """
+        If the form validates, this method will be called before the user is
+        redirected to the success_url. The default implementation is to just
+        save the form.
+        """
+        form.save()
 
+    def render(self, context, instance, placeholder):
+        context = super(FormPluginBase, self).render(context, instance, placeholder)  # noqa
+        request = context.get('request')
+
+        form_class = self.get_form_class(instance)
         if form_class:
-            context['cmsplugin_form_handler_action'] = reverse(
-                'cmsplugin_form_handler:process_form', args=(instance.pk, ))
-            instance_id = request.GET.get('instance_id')
-            if instance_id and int(instance_id) == instance.pk:
-                data = request.GET.copy()
-                context['form'] = form_class(instance, data=data)
+            source_url = request.path
+            data = None
+
+            if hasattr(request, 'session'):
+                data = request.session.get(get_session_key(instance.pk))
+            elif request.GET.get('cmsplugin_form_plugin_id'):
+                # Sessions aren't available, see if we fell-back to GET params
+                plugin_id = request.GET.get('cmsplugin_form_plugin_id')
+                if plugin_id and int(plugin_id) == instance.pk:
+                    data = request.GET.copy()
+
+            if data:
+                context['cmsplugin_form'] = form_class(source_url, data=data)
             else:
-                context['form'] = form_class(instance)
+                request.session.set_test_cookie()
+                context['cmsplugin_form'] = form_class(source_url)
         return context
