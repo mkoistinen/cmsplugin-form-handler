@@ -5,6 +5,8 @@ CMSPlugin Form Handler
 This package aims to provide a mechanism for handling form-submissions in
 django-CMS plugins.
 
+Jump to `Quickstart`_ below to get started, or see the proper
+`documentation <http://cmsplugin-form-handler.readthedocs.org/en/latest/>`_.
 
 ---------------------
 Background & Approach
