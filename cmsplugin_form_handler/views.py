@@ -49,7 +49,7 @@ class ProcessFormView(FormView):
     def get_form_class(self):
         instance, plugin = self.plugin
         if hasattr(plugin, 'get_form_class'):
-            return plugin.get_form_class(instance)
+            return plugin.get_form_class(self.request, instance)
         raise ImproperlyConfigured(
             'Source form plugin does not define `get_form_class()`.')
 
@@ -61,7 +61,7 @@ class ProcessFormView(FormView):
     def get_success_url(self):
         instance, plugin = self.plugin
         try:
-            url = plugin.get_success_url(instance)
+            url = plugin.get_success_url(self.request, instance)
             return url
         except AttributeError:
             raise ImproperlyConfigured(
@@ -74,7 +74,7 @@ class ProcessFormView(FormView):
         """
         instance, plugin = self.plugin
         try:
-            callback = plugin.on_valid_form(instance)
+            callback = plugin.valid_form(self.request, instance)
             return callback
         except AttributeError:
             return None
@@ -93,7 +93,7 @@ class ProcessFormView(FormView):
         # If the source plugin has declared a `form_valid` method, call it with
         # the validated form before redirecting to the `success_url`.
         instance, plugin = self.plugin
-        plugin.form_valid(instance, form)
+        plugin.form_valid(self.request, instance, form)
 
         return super(ProcessFormView, self).form_valid(form)
 

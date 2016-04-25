@@ -1,0 +1,7 @@
+
+==== 0.1.1 (2016-04-24) ===
+
+* Adds `request` to signature of `get_form_class`, `get_success_url`
+  and `form_valid`.
+* Adds proper documentation
+* Adds this `CHANGELOG.txt`

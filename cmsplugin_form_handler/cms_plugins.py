@@ -17,7 +17,7 @@ class FormPluginBase(CMSPluginBase):
     form_class = None
     success_url = None
 
-    def get_form_class(self, instance):
+    def get_form_class(self, request, instance):
         """
         Returns the form class to be used by this plugin.
 
@@ -27,7 +27,7 @@ class FormPluginBase(CMSPluginBase):
         """
         return self.form_class
 
-    def get_success_url(self, instance):
+    def get_success_url(self, request, instance):
         """
         Returns the redirect URL for successful form submissions.
 
@@ -37,7 +37,7 @@ class FormPluginBase(CMSPluginBase):
         """
         return self.success_url
 
-    def form_valid(self, instance, form):
+    def form_valid(self, request, instance, form):
         """
         If the form validates, this method will be called before the user is
         redirected to the success_url. The default implementation is to just
@@ -49,7 +49,7 @@ class FormPluginBase(CMSPluginBase):
         context = super(FormPluginBase, self).render(context, instance, placeholder)  # noqa
         request = context.get('request')
 
-        form_class = self.get_form_class(instance)
+        form_class = self.get_form_class(request, instance)
         if form_class:
             source_url = request.path
             data = None
