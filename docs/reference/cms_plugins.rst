@@ -15,6 +15,9 @@ FormPluginBase
 This class is a sub-class of the normal ``cms.plugin_base.CMSPluginBase`` but
 offers additional functionality for dealing with plugin-based forms.
 
+Attributes
+**********
+
 .. attribute:: cache
 
     This base-class will automatically set the normal ``cache`` attribute to
@@ -33,6 +36,9 @@ offers additional functionality for dealing with plugin-based forms.
     Set this to the URL of the "success page" of the form. Using this attribute
     is simple and suitable for static success URLs. However, in most projects,
     it is likely more appropriate to use :meth:`get_success_url`.
+
+Methods
+*******
 
 .. method:: get_form_class(request, instance)
 
