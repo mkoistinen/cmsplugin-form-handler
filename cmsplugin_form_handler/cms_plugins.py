@@ -51,7 +51,7 @@ class FormPluginBase(CMSPluginBase):
 
         form_class = self.get_form_class(request, instance)
         if form_class:
-            source_url = request.path
+            source_url = request.get_full_path()
             data = None
 
             if hasattr(request, 'session'):
@@ -65,6 +65,5 @@ class FormPluginBase(CMSPluginBase):
             if data:
                 context['cmsplugin_form'] = form_class(source_url, data=data)
             else:
-                request.session.set_test_cookie()
                 context['cmsplugin_form'] = form_class(source_url)
         return context
