@@ -77,17 +77,17 @@ Subclass your cms plugin from ``FormPluginBase``: ::
 
             return context
 
-        def get_form_class(self, instance):
+        def get_form_class(self, request, instance):
             # Use this method to programmatically determine the form_class.
             # This is what this method does by default:
             return self.form_class
 
-        def get_success_url(self, instance):
+        def get_success_url(self, request, instance):
             # Use this method to programmatically determine the success_url.
             # This is what this method does by default:
             return self.success_url
 
-        def form_valid(self, instance, form):
+        def form_valid(self, request, instance, form):
             # Optionally do something with the rendered form here
             # This is what this method does by default:
             form.save()
