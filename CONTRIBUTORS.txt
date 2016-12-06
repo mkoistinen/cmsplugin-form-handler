@@ -1,0 +1,8 @@
+Primary author/maintainer
+=========================
+mkoistinen
+
+
+Special thank you to the following contributors
+===============================================
+marksweb
