@@ -56,6 +56,23 @@ Methods
 
         This is the CMS plugin instance of the plugin used to produce the form.
 
+.. method:: get_form_kwargs(self, request, instance)
+
+    The return value of this method is added as kwargs when instantiating the
+    form. This is useful if you need to pass additional parameters to the form.
+
+    :param HTTPRequest request:
+
+        This is the request object for the form-submission. This may be useful
+        for determining which kwargs to send.
+
+    :param CMSPlugin instance:
+
+        This is the CMS plugin instance of the plugin used to produce the form.
+        This may be useful for determining which kwargs to send.
+
+    The default implementation returns an empty dict.
+
 .. method:: get_success_url(request, instance)
 
     Returns the desired URL that the user should be redirected to if their form
