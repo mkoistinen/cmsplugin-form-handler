@@ -82,6 +82,11 @@ Subclass your cms plugin from ``FormPluginBase``: ::
             # This is what this method does by default:
             return self.form_class
 
+        def get_form_kwargs(self, request, instance):
+            # Use this method to programmatically add additional parameters to
+            # your form. By default, this should return an empty dict.
+            return {}
+
         def get_success_url(self, request, instance):
             # Use this method to programmatically determine the success_url.
             # This is what this method does by default:
