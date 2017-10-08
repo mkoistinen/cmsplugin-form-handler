@@ -42,3 +42,13 @@ only to subclass ``FormPluginBase`` rather than the usual
 
 The ``Form`` or ``ModelForm`` presented in the CMS plugin should also include
 the "mixin" ``FormPluginFormMixin``.
+
+A templatetag (``cmsplugin_form_action``) is provided to include the special
+URL as the ``action`` of the form making the encapsulation complete.
+
+
+Use with other packages
+-----------------------
+
+Use with third-party packages such as Crispy Forms is possible, please see
+:ref:`crispy-forms`.
