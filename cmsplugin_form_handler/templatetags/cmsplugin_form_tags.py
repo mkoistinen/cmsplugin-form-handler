@@ -34,4 +34,5 @@ class FormAction(AsTag):
             args=(plugin_id, )
         )
 
+
 register.tag(FormAction)

@@ -20,10 +20,10 @@ from . import get_session_key
 
 class ProcessFormView(FormView):
     """
-    The goal of this view is to accept a POSTed form. From this, determine which
-    CMSPlugin it belongs to, grab the form class, instantiate the form, validate
-    it as normal, then, if valid, redirect to the `success_url` as defined in
-    the plugin class's get_success_url(instance).
+    The goal of this view is to accept a POSTed form. From this, determine
+    which CMSPlugin it belongs to, grab the form class, instantiate the form,
+    validate it as normal, then, if valid, redirect to the `success_url` as
+    defined in the plugin class's get_success_url(instance).
 
     If the form is not valid, then send it back whence it came.
     """

@@ -13,9 +13,12 @@ class FormPluginBase(CMSPluginBase):
     """
     Subclass this to prepare a plugin to be used for form handling.
     """
+    # Caching a plugin that has a form doesn't make sense, so, it is disabled
+    # here. It can, however, be overridden in the sub-class if necessary.
     cache = False
 
-    # These should be overridden in sub-classes
+    # These should be overridden in sub-classes unless the getter-equivalent
+    # is defined instead
     form_class = None
     success_url = None
 
@@ -56,7 +59,8 @@ class FormPluginBase(CMSPluginBase):
         form.save()
 
     def render(self, context, instance, placeholder):
-        context = super(FormPluginBase, self).render(context, instance, placeholder)  # noqa
+        context = super(FormPluginBase, self).render(
+            context, instance, placeholder)
         request = context.get('request')
 
         form_class = self.get_form_class(request, instance)
@@ -69,7 +73,8 @@ class FormPluginBase(CMSPluginBase):
                 try:
                     data = QueryDict(data)
                 except TypeError:
-                    # the data must have already been saved as a dict. just use the dict until a string is saved
+                    # the data must have already been saved as a dict. Just
+                    # use the dict until a string is saved
                     pass
             elif request.GET.get('cmsplugin_form_plugin_id'):
                 # Sessions aren't available, see if we fell-back to GET params
