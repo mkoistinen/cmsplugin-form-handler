@@ -29,7 +29,7 @@ class FormPluginBase(CMSPluginBase):
         """
         return self.form_class
 
-    def get_form_kwargs(self, request):
+    def get_form_kwargs(self, request, instance):
         """
         Returns any additional kwargs to add to the form.
 
