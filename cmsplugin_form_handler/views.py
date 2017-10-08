@@ -108,7 +108,7 @@ class ProcessFormView(FormView):
         data = form.data.copy()
         if getattr(self.request, 'session'):
             session_key = get_session_key(plugin_id)
-            self.request.session[session_key] = data
+            self.request.session[session_key] = data.urlencode()
         else:
             # Fallback to GET params...
             # Don't need this on the URL

@@ -2,6 +2,8 @@
 
 from __future__ import unicode_literals
 
+from django.http import QueryDict
+
 from cms.plugin_base import CMSPluginBase
 
 from . import get_session_key
@@ -64,6 +66,11 @@ class FormPluginBase(CMSPluginBase):
 
             if hasattr(request, 'session'):
                 data = request.session.get(get_session_key(instance.pk))
+                try:
+                    data = QueryDict(data)
+                except TypeError:
+                    # the data must have already been saved as a dict. just use the dict until a string is saved
+                    pass
             elif request.GET.get('cmsplugin_form_plugin_id'):
                 # Sessions aren't available, see if we fell-back to GET params
                 plugin_id = request.GET.get('cmsplugin_form_plugin_id')
