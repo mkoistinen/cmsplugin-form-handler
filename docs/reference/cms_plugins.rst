@@ -28,14 +28,15 @@ Attributes
 .. attribute:: form_class
 
     Set this to the ``forms.Form`` or ``forms.ModelForm`` you wish this plugin
-    to present. If you need to determine which form to present based on the
-    specific plugin instance, see :meth:`get_form_class`.
+    to present. If the project needs to determine which form to present based
+    on the specific plugin instance, implement :meth:`get_form_class` instead.
 
 .. attribute:: success_url
 
     Set this to the URL of the "success page" of the form. Using this attribute
-    is simple and suitable for static success URLs. However, in most projects,
-    it is likely more appropriate to use :meth:`get_success_url`.
+    is simple and suitable for static success URLs. If the project needs to
+    determine the URL based on the request or the plugin instance,
+    implement :meth:`get_success_url` instead.
 
 Methods
 *******
