@@ -54,10 +54,11 @@ class ProcessFormView(FormView):
             'Source form plugin does not define `get_form_class()`.')
 
     def get_form_kwargs(self):
-        _, plugin = self.plugin
+        instance, plugin = self.plugin
         kwargs = super(ProcessFormView, self).get_form_kwargs()
         kwargs['source_url'] = self.source_url
-        kwargs.update(plugin.get_form_kwargs(self.request))
+        kwargs['instance'] = instance
+        kwargs.update(plugin.get_form_kwargs(self.request, instance))
         return kwargs
 
     def get_success_url(self):
