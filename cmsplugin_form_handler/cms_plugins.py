@@ -77,8 +77,12 @@ class FormPluginBase(CMSPluginBase):
                 if plugin_id and int(plugin_id) == instance.pk:
                     data = request.GET.copy()
 
+            form_kwargs = self.get_form_kwargs(request, instance)
+
             if data:
-                context['cmsplugin_form'] = form_class(source_url, data=data, **self.get_form_kwargs(request))
+                context['cmsplugin_form'] = form_class(
+                    source_url, instance, data=data, **form_kwargs)
             else:
-                context['cmsplugin_form'] = form_class(source_url, **self.get_form_kwargs(request))
+                context['cmsplugin_form'] = form_class(
+                    source_url, instance, **form_kwargs)
         return context
