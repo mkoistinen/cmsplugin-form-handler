@@ -27,6 +27,14 @@ class FormPluginBase(CMSPluginBase):
         """
         return self.form_class
 
+    def get_form_kwargs(self, request):
+        """
+        Returns any additional kwargs to add to the form.
+
+        Default implementation is to return an empty dict.
+        """
+        return {}
+
     def get_success_url(self, request, instance):
         """
         Returns the redirect URL for successful form submissions.
@@ -63,7 +71,7 @@ class FormPluginBase(CMSPluginBase):
                     data = request.GET.copy()
 
             if data:
-                context['cmsplugin_form'] = form_class(source_url, data=data)
+                context['cmsplugin_form'] = form_class(source_url, data=data, **self.get_form_kwargs(request))
             else:
-                context['cmsplugin_form'] = form_class(source_url)
+                context['cmsplugin_form'] = form_class(source_url, **self.get_form_kwargs(request))
         return context
