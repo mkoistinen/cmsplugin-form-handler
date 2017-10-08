@@ -83,7 +83,6 @@ class FormPluginBase(CMSPluginBase):
                 'instance': instance,
             })
             if data:
-                context['cmsplugin_form'] = form_class(data=data, **kwargs)
-            else:
-                context['cmsplugin_form'] = form_class(**kwargs)
+                kwargs.update({'data': data})
+            context['cmsplugin_form'] = form_class(**kwargs)
         return context
