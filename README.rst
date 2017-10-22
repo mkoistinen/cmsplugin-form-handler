@@ -2,6 +2,16 @@
 CMSPlugin Form Handler
 ======================
 
+|PyPI Version| |Build Status| |Coverage Status|
+
+.. |PyPI Version| image:: http://img.shields.io/pypi/v/cmsplugin-form-handler.svg
+   :target: https://pypi.python.org/pypi/cmsplugin-form-handler
+.. |Build Status| image:: http://img.shields.io/travis/mkoistinen/cmsplugin-form-handler/master.svg
+   :target: https://travis-ci.org/mkoistinen/cmsplugin-form-handler
+.. |Coverage Status| image:: http://img.shields.io/coveralls/mkoistinen/cmsplugin-form-handler/master.svg
+   :target: https://coveralls.io/r/mkoistinen/cmsplugin-form-handler?branch=master
+
+
 This package provides a mechanism for handling form-submissions in
 django-CMS plugins.
 
