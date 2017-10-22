@@ -13,20 +13,29 @@ from django.views.static import serve
 admin.autodiscover()
 
 urlpatterns = [
-    url(r'^sitemap\.xml$', sitemap,
-        {'sitemaps': {'cmspages': CMSSitemap}}),
-    url(r'^plugin_forms/', include('cmsplugin_form_handler.urls',
-                                   namespace='cmsplugin_form_handler')),
+    url(
+        r'^sitemap\.xml$', sitemap,
+        {'sitemaps': {'cmspages': CMSSitemap}}
+    ),
 ]
 
 urlpatterns += i18n_patterns(
-    url(r'^admin/', include(admin.site.urls)),  # NOQA
+    url(r'^admin/', include(admin.site.urls)),
+    url(
+        r'^plugin_forms/',
+        include(
+            'cmsplugin_form_handler.urls',
+            namespace='cmsplugin_form_handler',
+        )
+    ),
     url(r'^', include('cms.urls')),
 )
 
 # This is only needed when using runserver.
 if settings.DEBUG:
     urlpatterns = [
-        url(r'^media/(?P<path>.*)$', serve,
-            {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}),
+        url(
+            r'^media/(?P<path>.*)$', serve,
+            {'document_root': settings.MEDIA_ROOT, 'show_indexes': True}
+        ),
     ] + staticfiles_urlpatterns() + urlpatterns

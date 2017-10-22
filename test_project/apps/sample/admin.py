@@ -7,4 +7,4 @@ from .models import Sample
 
 @admin.register(Sample)
 class SampleAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('name', 'message', )
