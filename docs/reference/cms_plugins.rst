@@ -28,14 +28,15 @@ Attributes
 .. attribute:: form_class
 
     Set this to the ``forms.Form`` or ``forms.ModelForm`` you wish this plugin
-    to present. If you need to determine which form to present based on the
-    specific plugin instance, see :meth:`get_form_class`.
+    to present. If the project needs to determine which form to present based
+    on the specific plugin instance, implement :meth:`get_form_class` instead.
 
 .. attribute:: success_url
 
     Set this to the URL of the "success page" of the form. Using this attribute
-    is simple and suitable for static success URLs. However, in most projects,
-    it is likely more appropriate to use :meth:`get_success_url`.
+    is simple and suitable for static success URLs. If the project needs to
+    determine the URL based on the request or the plugin instance,
+    implement :meth:`get_success_url` instead.
 
 Methods
 *******
@@ -55,6 +56,23 @@ Methods
     :param CMSPlugin instance:
 
         This is the CMS plugin instance of the plugin used to produce the form.
+
+.. method:: get_form_kwargs(self, request, instance)
+
+    The return value of this method is added as kwargs when instantiating the
+    form. This is useful if you need to pass additional parameters to the form.
+
+    :param HTTPRequest request:
+
+        This is the request object for the form-submission. This may be useful
+        for determining which kwargs to send.
+
+    :param CMSPlugin instance:
+
+        This is the CMS plugin instance of the plugin used to produce the form.
+        This may be useful for determining which kwargs to send.
+
+    The default implementation returns an empty dict.
 
 .. method:: get_success_url(request, instance)
 

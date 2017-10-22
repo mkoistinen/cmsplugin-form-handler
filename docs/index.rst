@@ -16,6 +16,7 @@ Contents:
 
     background
     quickstart
+    third_party_compatibility
     reference/index
 
 Indices and tables

@@ -2,11 +2,11 @@
 
 from __future__ import unicode_literals
 
-try:
-    from urllib.parse import urlparse, urlencode  # py3
-except ImportError:
-    from urlparse import urlparse  # py2
-    from urllib import urlencode  # py2
+try:  # pragma: no cover
+    from urllib.parse import urlparse, urlencode  # py3  # noqa: F401
+except ImportError:  # pragma: no cover
+    from urlparse import urlparse  # py2  # noqa: F401
+    from urllib import urlencode  # py2  # noqa: F401
 
 from django.core.exceptions import ImproperlyConfigured
 from django.shortcuts import redirect
@@ -20,10 +20,10 @@ from . import get_session_key
 
 class ProcessFormView(FormView):
     """
-    The goal of this view is to accept a POSTed form. From this, determine which
-    CMSPlugin it belongs to, grab the form class, instantiate the form, validate
-    it as normal, then, if valid, redirect to the `success_url` as defined in
-    the plugin class's get_success_url(instance).
+    The goal of this view is to accept a POSTed form. From this, determine
+    which CMSPlugin it belongs to, grab the form class, instantiate the form,
+    validate it as normal, then, if valid, redirect to the `success_url` as
+    defined in the plugin class's get_success_url(instance).
 
     If the form is not valid, then send it back whence it came.
     """
@@ -37,7 +37,7 @@ class ProcessFormView(FormView):
         try:
             plugin_id = int(self.kwargs.get('plugin_id'))
             cms_plugin_instance = CMSPlugin.objects.get(pk=plugin_id)
-        except (KeyError, TypeError, CMSPlugin.DoesNotExist) as e:
+        except (KeyError, TypeError, CMSPlugin.DoesNotExist):
             raise ImproperlyConfigured('Source form plugin not found.')
         return cms_plugin_instance.get_plugin_instance()
 
@@ -48,16 +48,18 @@ class ProcessFormView(FormView):
 
     def get_form_class(self):
         instance, plugin = self.plugin
-        if hasattr(plugin, 'get_form_class'):
+        try:
             return plugin.get_form_class(self.request, instance)
-        raise ImproperlyConfigured(
-            'Source form plugin does not define `get_form_class()`.')
+        except (AttributeError, TypeError):
+            raise ImproperlyConfigured(
+                'Source form plugin does not define `get_form_class()`.')
 
     def get_form_kwargs(self):
-        _, plugin = self.plugin
+        instance, plugin = self.plugin
         kwargs = super(ProcessFormView, self).get_form_kwargs()
         kwargs['source_url'] = self.source_url
-        kwargs.update(plugin.get_form_kwargs(self.request))
+        kwargs['instance'] = instance
+        kwargs.update(plugin.get_form_kwargs(self.request, instance))
         return kwargs
 
     def get_success_url(self):
@@ -68,18 +70,6 @@ class ProcessFormView(FormView):
         except AttributeError:
             raise ImproperlyConfigured(
                 'Source plugin does not define `get_success_url()`.')
-
-    def get_form_valid(self):
-        """
-        Returns the `form_valid()` callback as a bound method from the
-        source plugin.
-        """
-        instance, plugin = self.plugin
-        try:
-            callback = plugin.valid_form(self.request, instance)
-            return callback
-        except AttributeError:
-            return None
 
     def form_valid(self, form):
         """

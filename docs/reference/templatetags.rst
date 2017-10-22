@@ -15,7 +15,7 @@ form_action
 This template tag provides the URL for the form action. It simply returns the
 correct URL to use for submitting the form. It is roughly equivalent to: ::
 
-    {% url 'plugin_form_handler:process_form' instance.pk %}
+    {% url 'cmsplugin_form_handler:process_form' instance.pk %}
 
 Although simple, the purpose of this tag is to encapsulate the implementation
 details of cmsplugin-form-handler so that future changes can occur as necessary

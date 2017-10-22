@@ -1,7 +1,24 @@
+==== 0.2.0 (2017-10-22) ===
+
+* Add good test coverage, travis CI and Coveralls support
+* Update code for clarity, PEP-8 and line-length (80 columns)
+* Update documentation for new methods, and a note about Crispy Forms
+* Update signature of get_form_kwargs() to include `instance`
+* Add `get_form_kwargs()` method to the plugin base class (thanks: hcNick)
+* Store state as QueryDict in sessions (thanks: jproffitt)
+
+==== 0.1.3 (2016-12-06) ===
+
+* Update documentation (thanks: marksweb)
+* add CONTRIBUTORS.txt
+
+==== 0.1.2 (2016-04-24) ===
+
+* Update documentation
 
 ==== 0.1.1 (2016-04-24) ===
 
-* Adds `request` to signature of `get_form_class`, `get_success_url`
+* Add `request` to signature of `get_form_class`, `get_success_url`
   and `form_valid`.
-* Adds proper documentation
-* Adds this `CHANGELOG.txt`
+* Add proper documentation
+* Add this `CHANGELOG.txt`
