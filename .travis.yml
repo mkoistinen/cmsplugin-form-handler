@@ -5,6 +5,11 @@ python: 3.5
 # Use container based infrastructure
 sudo: false
 
+addons:
+  apt:
+    packages:
+      - libenchant-dev
+
 #env:
 matrix:
   include:

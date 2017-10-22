@@ -2,7 +2,6 @@
 source =
     cmsplugin_form_handler
 branch = False
-omit =
 
 [report]
 exclude_lines =
