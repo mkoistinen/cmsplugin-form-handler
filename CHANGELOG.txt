@@ -1,8 +1,8 @@
+==== 0.2.0 (2017-10-22) ===
 
-==== x,y,z (2017-10-08) ===
-
+* Add good test coverage, travis CI and Coveralls support
 * Update code for clarity, PEP-8 and line-length (80 columns)
-* Update documentation for new method, and a note about Crispy Forms
+* Update documentation for new methods, and a note about Crispy Forms
 * Update signature of get_form_kwargs() to include `instance`
 * Add `get_form_kwargs()` method to the plugin base class (thanks: hcNick)
 * Store state as QueryDict in sessions (thanks: jproffitt)
