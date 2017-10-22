@@ -3,10 +3,10 @@
 from __future__ import unicode_literals
 
 try:
-    from urllib.parse import urlparse, urlencode  # py3
+    from urllib.parse import urlparse, urlencode  # py3  # noqa: F401
 except ImportError:
-    from urlparse import urlparse  # py2
-    from urllib import urlencode  # py2
+    from urlparse import urlparse  # py2  # noqa: F401
+    from urllib import urlencode  # py2  # noqa: F401
 
 from django.core.exceptions import ImproperlyConfigured
 from django.shortcuts import redirect
