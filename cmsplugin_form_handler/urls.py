@@ -6,7 +6,7 @@ from django.conf.urls import url
 
 from .views import ProcessFormView
 
-app_name = 'plugin_form_handler'
+app_name = 'cmsplugin_form_handler'
 
 urlpatterns = [
     url(
