@@ -2,9 +2,9 @@
 
 from __future__ import unicode_literals
 
-try:
+try:  # pragma: no cover
     from urllib.parse import urlparse, urlencode  # py3  # noqa: F401
-except ImportError:
+except ImportError:  # pragma: no cover
     from urlparse import urlparse  # py2  # noqa: F401
     from urllib import urlencode  # py2  # noqa: F401
 
@@ -37,7 +37,7 @@ class ProcessFormView(FormView):
         try:
             plugin_id = int(self.kwargs.get('plugin_id'))
             cms_plugin_instance = CMSPlugin.objects.get(pk=plugin_id)
-        except (KeyError, TypeError, CMSPlugin.DoesNotExist) as e:
+        except (KeyError, TypeError, CMSPlugin.DoesNotExist):
             raise ImproperlyConfigured('Source form plugin not found.')
         return cms_plugin_instance.get_plugin_instance()
 
@@ -48,10 +48,11 @@ class ProcessFormView(FormView):
 
     def get_form_class(self):
         instance, plugin = self.plugin
-        if hasattr(plugin, 'get_form_class'):
+        try:
             return plugin.get_form_class(self.request, instance)
-        raise ImproperlyConfigured(
-            'Source form plugin does not define `get_form_class()`.')
+        except (AttributeError, TypeError):
+            raise ImproperlyConfigured(
+                'Source form plugin does not define `get_form_class()`.')
 
     def get_form_kwargs(self):
         instance, plugin = self.plugin
@@ -69,18 +70,6 @@ class ProcessFormView(FormView):
         except AttributeError:
             raise ImproperlyConfigured(
                 'Source plugin does not define `get_success_url()`.')
-
-    def get_form_valid(self):
-        """
-        Returns the `form_valid()` callback as a bound method from the
-        source plugin.
-        """
-        instance, plugin = self.plugin
-        try:
-            callback = plugin.valid_form(self.request, instance)
-            return callback
-        except AttributeError:
-            return None
 
     def form_valid(self, form):
         """
