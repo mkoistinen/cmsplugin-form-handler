@@ -36,12 +36,17 @@ class CMSPluginFormHandlerTestCase(CMSTestCase):
         page = None
         page_title_text = 'Basic Form Page'
         if not Title.objects.filter(title=page_title_text).exists():
-            page = create_page(
-                page_title_text,
-                'fullwidth.html',
-                'en',
-                published=False,
-            )
+            page_kwargs = {
+                'title': page_title_text,
+                'template': 'fullwidth.html',
+                'language': 'en',
+                'published': False,
+            }
+
+            if hasattr(self, 'create_homepage'):
+                page = self.create_homepage(**page_kwargs)
+            else:
+                page = create_page(**page_kwargs)
 
         # Get placeholder from the page
         placeholder = page.placeholders.filter(slot='content').first()

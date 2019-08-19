@@ -6,7 +6,7 @@ from cmsplugin_form_handler import __version__
 
 
 INSTALL_REQUIRES = [
-    'django-cms>=3.1',
+    'django-cms>=3.4',
 ]
 
 # https://pypi.python.org/pypi?%3Aaction=list_classifiers
@@ -14,18 +14,17 @@ CLASSIFIERS = [
     'Development Status :: 3 - Alpha',
     'Environment :: Web Environment',
     'Framework :: Django',
-    'Framework :: Django :: 1.8',
-    'Framework :: Django :: 1.9',
-    'Framework :: Django :: 1.10',
     'Framework :: Django :: 1.11',
+    'Framework :: Django :: 2.0',
+    'Framework :: Django :: 2.1',
     'Intended Audience :: Developers',
     'License :: OSI Approved :: BSD License',
     'Operating System :: OS Independent',
     'Programming Language :: Python',
     'Programming Language :: Python :: 2.7',
-    'Programming Language :: Python :: 3.4',
     'Programming Language :: Python :: 3.5',
     'Programming Language :: Python :: 3.6',
+    'Programming Language :: Python :: 3.7',
     'Topic :: Communications',
     'Topic :: Internet :: WWW/HTTP :: Dynamic Content',
 ]

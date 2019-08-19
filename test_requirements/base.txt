@@ -1,12 +1,12 @@
-django-crispy-forms==1.7.0
+django-crispy-forms==1.7.1
 
 
 flake8
-coverage==4.2
-python-coveralls==2.5.0
-pyflakes==1.1.0
+coverage==4.5.3
+coveralls==1.8.1
+pyflakes==2.1.1
 
 
 # Documentation related
-sphinx==1.4.5
+sphinx==1.8.5
 sphinxcontrib-spelling

@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 
 from django import template
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 
 from classytags.arguments import Argument
 from classytags.core import Options
